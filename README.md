@@ -292,7 +292,8 @@ use that instead when available.
 
 Replace with `
 ` to normalize Windows (`
-`) and old Mac (``)
+`) and old Mac (`
+`)
 line endings to Unix (`
 `).
 
@@ -597,3 +598,14 @@ cases, and any relevant edge case notes.
 ## License
 
 MIT
+
+---
+
+## Extended References
+
+The main patterns above cover the most common use cases. For more:
+
+- [Extended Validation Patterns](sections/VALIDATION.md) - postal codes, IBAN, VIN, MAC address, semver, ISBN, coordinates
+- [Text Extraction Patterns](sections/EXTRACTION.md) - pulling data out of larger text blocks
+- [Language-Specific Notes](LANGUAGE-NOTES.md) - syntax differences between JS, PHP, Python, and MySQL
+- [Validation Test Cases](tests/validation-tests.md) - test inputs for verifying patterns in your environment
