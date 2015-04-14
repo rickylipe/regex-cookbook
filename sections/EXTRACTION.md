@@ -1,39 +1,73 @@
 # Extraction Patterns
 
 Patterns for pulling specific data out of larger blocks of text.
-All patterns intended for use with global flag unless noted.
+
+**About the global flag:** Most extraction patterns are meant to find
+*all* occurrences in a string, not just the first one. By default, most
+regex engines stop after the first match. The global flag (`g` in
+JavaScript, or using `findall`/`match_all` in other languages) tells
+the engine to keep going and return every match.
+
+```javascript
+// Without global flag - only first match
+'call 314-555-1234 or 800-555-9876'.match(/\d{3}-\d{3}-\d{4}/)
+// ['314-555-1234']
+
+// With global flag - all matches
+'call 314-555-1234 or 800-555-9876'.match(/\d{3}-\d{3}-\d{4}/g)
+// ['314-555-1234', '800-555-9876']
+```
+
+Patterns below are noted when a different behavior is expected.
 
 ---
 
 ## Extract All URLs
 
-```regex
-https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}([-a-zA-Z0-9()@:%_\+.~#?&\/=]*)
+```
+https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}([-a-zA-Z0-9()@:%_\+.~#?&\/=]*)
 ```
 
 Finds all HTTP/HTTPS URLs in text. Requires protocol prefix.
+
+| Input | Matches |
+|---|---|
+| `See https://example.com and http://test.org/page` | `https://example.com`, `http://test.org/page` |
+| `Visit example.com` | no match (no protocol) |
+| `Download at https://files.example.com/doc.pdf?v=2` | `https://files.example.com/doc.pdf?v=2` |
 
 ---
 
 ## Extract All Email Addresses
 
-```regex
+```
 [a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}
 ```
+
+| Input | Matches |
+|---|---|
+| `Contact info@example.com or support@help.org` | `info@example.com`, `support@help.org` |
+| `user.name+tag@sub.domain.co.uk` | `user.name+tag@sub.domain.co.uk` |
+| `not an email` | no match |
 
 ---
 
 ## Extract All Phone Numbers (US)
 
-```regex
+```
 (\+1[\s\-]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]\d{4}
 ```
+
+| Input | Matches |
+|---|---|
+| `Call 314-555-1234 or (800) 555-9876` | `314-555-1234`, `(800) 555-9876` |
+| `Phone: +1 314.555.1234` | `+1 314.555.1234` |
 
 ---
 
 ## Extract Prices
 
-```regex
+```
 \$\s?[0-9]+(\.[0-9]{2})?
 ```
 
@@ -43,102 +77,116 @@ Captures dollar amounts with optional cents.
 |---|---|
 | `Total: $14.99` | `$14.99` |
 | `From $5 to $50.00` | `$5`, `$50.00` |
+| `Save $10 today` | `$10` |
+| `Price: 14.99` | no match (no $) |
 
 ---
 
 ## Extract Dates (Multiple Formats)
 
-```regex
-(0?[1-9]|1[0-2])[\/\-\.](0?[1-9]|[12][0-9]|3[01])[\/\-\.]([0-9]{2,4})
+```
+(0?[1-9]|1[0-2])[\/\-\.](0?[1-9]|[12][0-9]|3[01])[\/\-\.]([0-9]{2,4})
 ```
 
 Matches MM/DD/YYYY, MM-DD-YYYY, MM.DD.YY etc.
+
+| Input | Matches |
+|---|---|
+| `Expires 12/31/2025` | `12/31/2025` |
+| `Meeting on 1-5-2024 and 2-14-2024` | `1-5-2024`, `2-14-2024` |
+| `Date: 06.15.23` | `06.15.23` |
 
 ---
 
 ## Extract Words in ALL CAPS
 
-```regex
-[A-Z]{2,}
+```
+[A-Z]{2,}
 ```
 
 Matches sequences of 2 or more uppercase letters. Useful for finding
-acronyms or emphasis text.
+acronyms or emphasis text. Add word boundary alternative `(?<![A-Z])` at
+start and `(?![A-Z])` at end if you need isolated words only.
+
+| Input | Matches |
+|---|---|
+| `The CIA and FBI are US agencies` | `CIA`, `FBI`, `US` |
+| `ERROR: connection FAILED` | `ERROR`, `FAILED` |
+| `Hello World` | no match (only one cap per word) |
 
 ---
 
 ## Extract Content Between Tags
 
-```regex
-(?<=<tag>)[\s\S]*?(?=<\/tag>)
 ```
-
-Replace `tag` with the tag name you're looking for. Uses lookbehind
-and lookahead to exclude the tags from the match.
-
-Not all regex engines support lookbehind. Alternative with capture group:
-
-```regex
 <tag>([\s\S]*?)<\/tag>
 ```
+
+Replace `tag` with the tag name. Captures content in group 1.
+
+| Input | Group 1 |
+|---|---|
+| `<title>My Page</title>` | `My Page` |
+| `<p>Hello world</p>` | `Hello world` |
+| `<div>line1\nline2</div>` | `line1\nline2` |
 
 ---
 
 ## Extract First N Words
 
-```regex
-^(\S+\s+){0,N}\S+
+```
+^(\S+\s+){0,4}\S+
 ```
 
-Replace N with one less than the number of words you want.
-For 5 words: `^(\S+\s+){0,4}\S+`
+This example captures the first 5 words. Change `{0,4}` to `{0,N-1}`
+for a different count.
 
----
-
-## Extract Lines Containing a Word
-
-```regex
-^.*word.*$
-```
-
-Use with multiline (`m`) and global (`g`) flags.
-Replace `word` with your search term.
+| Input | Match |
+|---|---|
+| `one two three four five six seven` | `one two three four five` |
+| `only three words` | `only three words` |
 
 ---
 
 ## Extract Content in Parentheses
 
-```regex
+```
 \(([^)]+)\)
 ```
 
 Captures text inside parentheses in group 1. Does not handle nested
 parentheses.
 
+| Input | Group 1 |
+|---|---|
+| `Result (see appendix)` | `see appendix` |
+| `Price (USD): 14.99` | `USD` |
+| `No parens here` | no match |
+
 ---
 
 ## Extract Content in Quotes
 
 Double quotes:
-```regex
+```
 "([^"]*)"
 ```
 
 Single quotes:
-```regex
+```
 '([^']*)'
 ```
 
-Either:
-```regex
-["'](.*?)["']
-```
+| Input | Group 1 |
+|---|---|
+| `He said "hello world"` | `hello world` |
+| `class='active'` | `active` |
 
 ---
 
 ## Extract File Extension
 
-```regex
+```
 \.([a-zA-Z0-9]+)$
 ```
 
@@ -147,41 +195,57 @@ Captures the extension (without dot) in group 1.
 | Input | Group 1 |
 |---|---|
 | `document.pdf` | `pdf` |
-| `archive.tar.gz` | `gz` |
+| `archive.tar.gz` | `gz` (last extension only) |
+| `image.JPEG` | `JPEG` |
 | `README` | no match |
 
 ---
 
 ## Extract Filename from Path
 
-```regex
-[^\/]+(?=\.[^\/]+$)
+```
+[^\\/]+(?=\.[^\\/]+$)
 ```
 
 Captures filename without extension. Works with both forward
 and backslashes.
 
+| Input | Match |
+|---|---|
+| `/var/www/html/index.html` | `index` |
+| `C:\Users\ricky\document.pdf` | `document` |
+| `archive.tar.gz` | `archive.tar` |
+
 ---
 
 ## Extract IP Addresses from Logs
 
-```regex
-(?:\d{1,3}\.){3}\d{1,3}
+```
+(?<!\d)(\d{1,3}\.){3}\d{1,3}(?!\d)
 ```
 
-Finds IPv4 addresses in text. Does not validate octet ranges -
-use the validation pattern for that.
+Finds IPv4 addresses in text without matching partial numbers.
+
+| Input | Matches |
+|---|---|
+| `Request from 192.168.1.1 at 10:30` | `192.168.1.1` |
+| `Failed: 10.0.0.1 and 172.16.0.55` | `10.0.0.1`, `172.16.0.55` |
+| `Not an IP: 999.999.999.999` | matches (use validation pattern to check range) |
 
 ---
 
 ## Extract JSON Values by Key
 
-```regex
+```
 "key"\s*:\s*"([^"]*)"
 ```
 
 Replace `key` with the field name. Captures the string value in group 1.
 Only works for string values - not reliable for nested objects or arrays.
+
+| Input | Group 1 |
+|---|---|
+| `{"name": "Ricky", "city": "St. Louis"}` | `Ricky` (for key `name`) |
 
 > Use a proper JSON parser for anything beyond simple one-off extraction.
 
@@ -189,17 +253,60 @@ Only works for string values - not reliable for nested objects or arrays.
 
 ## Extract CSS Color Values
 
-Hex:
-```regex
-#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})
+Hex colors (with `#`):
+```
+#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})
 ```
 
-RGB:
-```regex
+| Input | Matches |
+|---|---|
+| `color: #FF5733; background: #fff` | `#FF5733`, `#fff` |
+| `color: rgb(255, 0, 0)` | no match |
+
+RGB values:
+```
 rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)
 ```
 
-HSL:
-```regex
+| Input | Matches |
+|---|---|
+| `color: rgb(255, 87, 51)` | `rgb(255, 87, 51)` - groups: `255`, `87`, `51` |
+| `rgb(0,0,0)` | `rgb(0,0,0)` - groups: `0`, `0`, `0` |
+| `color: #FF5733` | no match |
+
+HSL values:
+```
 hsl\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*\)
 ```
+
+| Input | Matches |
+|---|---|
+| `color: hsl(9, 100%, 60%)` | `hsl(9, 100%, 60%)` - groups: `9`, `100`, `60` |
+| `hsl(0, 0%, 0%)` | `hsl(0, 0%, 0%)` |
+| `color: rgb(255, 0, 0)` | no match |
+
+---
+
+## Extract Hashtags
+
+```
+#([a-zA-Z0-9_]+)
+```
+
+| Input | Group 1 |
+|---|---|
+| `Loving #regex and #coding` | `regex`, `coding` |
+| `Price: $14.99` | no match |
+
+---
+
+## Extract Mentions
+
+```
+@([a-zA-Z0-9_]+)
+```
+
+| Input | Group 1 |
+|---|---|
+| `Thanks @rickylipe for the tip` | `rickylipe` |
+| `Email user@example.com` | `example` (partial - avoid this with word boundaries) |
