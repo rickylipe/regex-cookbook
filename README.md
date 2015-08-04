@@ -58,7 +58,7 @@ for most use cases. This covers 99% of real addresses.
 ### US Phone Number
 
 ```
-^(\+1[\s\-]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]\d{4}(\s*(x|ext|extension)\.?\s*\d{1,6})?$
+^(\+1[\s\-]?)?\(?\d{3}\)?[\s\-\.]?\d{3}[\s\-\.]?\d{4}(\s*(x|ext|extension)\.?\s*\d{1,6})?$
 ```
 
 Matches US phone numbers in most common formats, with optional country
@@ -79,7 +79,7 @@ code and extension.
 ### US ZIP Code
 
 ```
-^\d{5}(-\d{4})?$
+^\d{5}(-\d{4}|\d{4})?$
 ```
 
 Matches 5-digit ZIP codes and ZIP+4 format.
@@ -338,14 +338,6 @@ use that instead when available.
 
 ---
 
-### Normalize Line Endings
-
-```
-\r\n|\r
-```
-
-Replace with `\n` to normalize Windows (`\r\n`) and old Mac (`\r`)
-line endings to Unix (`\n`).
 
 ---
 
@@ -413,18 +405,6 @@ Captures the domain (without `www`) in group 1.
 
 ---
 
-### Extract Query String Parameters
-
-```
-[?&]([^=&#]+)=([^&#]*)
-```
-
-Captures parameter name in group 1 and value in group 2.
-Use with global flag to get all parameters.
-
-| Input | Matches |
-|---|---|
-| `https://example.com?page=2&sort=asc` | `page=2`, `sort=asc` |
 
 ---
 
@@ -468,7 +448,7 @@ Replace `example\.com` with your domain. Matches with or without
 ### ISO 8601 Date (YYYY-MM-DD)
 
 ```
-^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$
+^\d{4}([/\-.])(0[1-9]|1[0-2])\1(0[1-9]|[12]\d|3[01])$
 ```
 
 | Input | Match |
