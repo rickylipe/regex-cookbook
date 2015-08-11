@@ -11,19 +11,56 @@ pattern in plain English, and shows capture groups.
 Supports PCRE, JavaScript, Python, and Golang flavors. Patterns
 can be saved and shared via URL.
 
-**Live examples from this cookbook** (opens in regex101 with pattern
-and test data pre-loaded):
+**Live examples from this cookbook** - click any link to open the
+pattern in regex101 with test data pre-loaded:
 
-| Pattern | Link |
+#### Validation
+
+| Pattern | Live Example |
 |---|---|
-| Email validation | *coming soon* |
-| US phone number | *coming soon* |
-| US ZIP code | *coming soon* |
-| IPv4 address | *coming soon* |
-| ISO 8601 date | *coming soon* |
-| Hex color code | *coming soon* |
-| URL extraction | *coming soon* |
-| Extract emails from text | *coming soon* |
+| Email address | [regex101.com/r/y1fAXf/1](https://regex101.com/r/y1fAXf/1) |
+| US phone number | [regex101.com/r/QOez5n/1](https://regex101.com/r/QOez5n/1) |
+| US ZIP code | [regex101.com/r/VvxeS1/1](https://regex101.com/r/VvxeS1/1) |
+| IPv4 address | [regex101.com/r/ZEmHyk/1](https://regex101.com/r/ZEmHyk/1) |
+| ISO 8601 date | [regex101.com/r/FnRwHb/1](https://regex101.com/r/FnRwHb/1) |
+| Hex color code | [regex101.com/r/I8SJXE/1](https://regex101.com/r/I8SJXE/1) |
+| Strong password | [regex101.com/r/mbchNt/1](https://regex101.com/r/mbchNt/1) |
+| UUID v4 | [regex101.com/r/9hbYOZ/1](https://regex101.com/r/9hbYOZ/1) |
+| Credit card number | [regex101.com/r/WoQiaB/1](https://regex101.com/r/WoQiaB/1) |
+| MAC address | [regex101.com/r/AuYoPJ/1](https://regex101.com/r/AuYoPJ/1) |
+| VIN | [regex101.com/r/wb9kTI/1](https://regex101.com/r/wb9kTI/1) |
+| Semantic version | [regex101.com/r/7CgxQG/1](https://regex101.com/r/7CgxQG/1) |
+| Canadian postal code | [regex101.com/r/2TulEn/1](https://regex101.com/r/2TulEn/1) |
+| UK postal code | [regex101.com/r/ur2msx/1](https://regex101.com/r/ur2msx/1) |
+| Username | [regex101.com/r/RQEcVI/1](https://regex101.com/r/RQEcVI/1) |
+| Percentage | [regex101.com/r/RDXcjw/1](https://regex101.com/r/RDXcjw/1) |
+| Currency (US) | [regex101.com/r/KnKwQD/1](https://regex101.com/r/KnKwQD/1) |
+
+#### Extraction
+
+| Pattern | Live Example |
+|---|---|
+| Extract URLs from text | [regex101.com/r/xrmNC7/1](https://regex101.com/r/xrmNC7/1) |
+| Extract emails from text | [regex101.com/r/jIuIAZ/1](https://regex101.com/r/jIuIAZ/1) |
+| Extract prices from text | [regex101.com/r/nXMZpH/1](https://regex101.com/r/nXMZpH/1) |
+| Extract hashtags | [regex101.com/r/e9j9Wa/1](https://regex101.com/r/e9j9Wa/1) |
+| Extract mentions | [regex101.com/r/9AVSJs/1](https://regex101.com/r/9AVSJs/1) |
+| Extract IP addresses from logs | [regex101.com/r/G3Q0da/1](https://regex101.com/r/G3Q0da/1) |
+| Extract content in quotes | [regex101.com/r/1MvinV/1](https://regex101.com/r/1MvinV/1) |
+| Extract file extensions | [regex101.com/r/DPKlxx/1](https://regex101.com/r/DPKlxx/1) |
+| Extract content in parentheses | [regex101.com/r/l9JJHV/1](https://regex101.com/r/l9JJHV/1) |
+| Extract domain from URL | [regex101.com/r/fBdIS8/1](https://regex101.com/r/fBdIS8/1) |
+| Extract HTML tags | [regex101.com/r/ywil3M/1](https://regex101.com/r/ywil3M/1) |
+| Extract HTML comments | [regex101.com/r/k6j2c6/1](https://regex101.com/r/k6j2c6/1) |
+
+#### Formatting & Cleanup
+
+| Pattern | Live Example |
+|---|---|
+| Remove HTML tags | [regex101.com/r/NlaPt5/1](https://regex101.com/r/NlaPt5/1) |
+| URL slug cleanup | [regex101.com/r/Oulq6K/1](https://regex101.com/r/Oulq6K/1) |
+| Repeated words | [regex101.com/r/javhWK/1](https://regex101.com/r/javhWK/1) |
+| Blank lines | [regex101.com/r/s96Hr7/1](https://regex101.com/r/s96Hr7/1) |
 
 ---
 
@@ -47,7 +84,7 @@ patterns. Starts simple and gets difficult fast.
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
 
 The most thorough JavaScript-specific regex reference available. Covers
-syntax, flags, methods, and Unicode support. Bookmark this.
+syntax, flags, methods, and Unicode support.
 
 ---
 
@@ -99,20 +136,7 @@ inputs is often worse than one that accepts 0.1% of invalid ones. For
 email and phone specifically, keep it simple and validate by actually
 contacting the address or number.
 
-**Comments in regex.** Many engines support verbose mode (`x` flag) which
-allows whitespace and `#` comments inside the pattern. Use it for complex
-patterns that need to be maintained.
-
-```python
-# Python example with verbose mode
-import re
-pattern = re.compile(r"""
-    ^           
-    (\\d{3})    
-    [-.\\s]?    
-    (\\d{3})    
-    [-.\\s]?    
-    (\\d{4})    
-    $           
-""", re.VERBOSE)
-```
+**Use verbose mode for complex patterns.** Many engines support an
+extended flag (`x`) which allows whitespace and comments inside the
+pattern for readability. Use it for anything complex that needs to
+be maintained long term.
