@@ -34,6 +34,8 @@ Finds all HTTP/HTTPS URLs in text. Requires protocol prefix.
 |---|---|
 | `See https://example.com and http://test.org/page` | `https://example.com`, `http://test.org/page` |
 | `Visit example.com` | no match (no protocol) |
+> [Live example on regex101](https://regex101.com/r/xrmNC7/1)
+
 | `Download at https://files.example.com/doc.pdf?v=2` | `https://files.example.com/doc.pdf?v=2` |
 
 ---
@@ -48,6 +50,8 @@ Finds all HTTP/HTTPS URLs in text. Requires protocol prefix.
 |---|---|
 | `Contact info@example.com or support@help.org` | `info@example.com`, `support@help.org` |
 | `user.name+tag@sub.domain.co.uk` | `user.name+tag@sub.domain.co.uk` |
+> [Live example on regex101](https://regex101.com/r/jIuIAZ/1)
+
 | `not an email` | no match |
 
 ---
@@ -62,6 +66,8 @@ Finds all HTTP/HTTPS URLs in text. Requires protocol prefix.
 |---|---|
 | `Call 314-555-1234 or (800) 555-9876` | `314-555-1234`, `(800) 555-9876` |
 | `Phone: +1 314.555.1234` | `+1 314.555.1234` |
+> [Live example on regex101](https://regex101.com/r/QOez5n/1)
+
 
 ---
 
@@ -79,6 +85,8 @@ Captures dollar amounts with optional cents.
 | `From $5 to $50.00` | `$5`, `$50.00` |
 | `Save $10 today` | `$10` |
 | `Price: 14.99` | no match (no $) |
+> [Live example on regex101](https://regex101.com/r/nXMZpH/1)
+
 
 ---
 
@@ -95,6 +103,8 @@ Matches MM/DD/YYYY, MM-DD-YYYY, MM.DD.YY etc.
 | `Expires 12/31/2025` | `12/31/2025` |
 | `Meeting on 1-5-2024 and 2-14-2024` | `1-5-2024`, `2-14-2024` |
 | `Date: 06.15.23` | `06.15.23` |
+> [Live example on regex101](https://regex101.com/r/FnRwHb/1)
+
 
 ---
 
@@ -112,6 +122,8 @@ start and `(?![A-Z])` at end if you need isolated words only.
 |---|---|
 | `The CIA and FBI are US agencies` | `CIA`, `FBI`, `US` |
 | `ERROR: connection FAILED` | `ERROR`, `FAILED` |
+> [Live example on regex101](https://regex101.com/r/G3Q0da/1)
+
 | `Hello World` | no match (only one cap per word) |
 
 ---
@@ -129,6 +141,8 @@ Replace `tag` with the tag name. Captures content in group 1.
 | `<title>My Page</title>` | `My Page` |
 | `<p>Hello world</p>` | `Hello world` |
 | `<div>line1\nline2</div>` | `line1\nline2` |
+> [Live example on regex101](https://regex101.com/r/ywil3M/1)
+
 
 ---
 
@@ -162,6 +176,8 @@ parentheses.
 | `Result (see appendix)` | `see appendix` |
 | `Price (USD): 14.99` | `USD` |
 | `No parens here` | no match |
+> [Live example on regex101](https://regex101.com/r/l9JJHV/1)
+
 
 ---
 
@@ -181,6 +197,8 @@ Single quotes:
 |---|---|
 | `He said "hello world"` | `hello world` |
 | `class='active'` | `active` |
+> [Live example on regex101](https://regex101.com/r/1MvinV/1)
+
 
 ---
 
@@ -198,6 +216,8 @@ Captures the extension (without dot) in group 1.
 | `archive.tar.gz` | `gz` (last extension only) |
 | `image.JPEG` | `JPEG` |
 | `README` | no match |
+> [Live example on regex101](https://regex101.com/r/DPKlxx/1)
+
 
 ---
 
@@ -231,6 +251,8 @@ Finds IPv4 addresses in text without matching partial numbers.
 | `Request from 192.168.1.1 at 10:30` | `192.168.1.1` |
 | `Failed: 10.0.0.1 and 172.16.0.55` | `10.0.0.1`, `172.16.0.55` |
 | `Not an IP: 999.999.999.999` | matches (use validation pattern to check range) |
+> [Live example on regex101](https://regex101.com/r/G3Q0da/1)
+
 
 ---
 
@@ -262,6 +284,8 @@ Hex colors (with `#`):
 |---|---|
 | `color: #FF5733; background: #fff` | `#FF5733`, `#fff` |
 | `color: rgb(255, 0, 0)` | no match |
+> [Live example on regex101](https://regex101.com/r/NlaPt5/1)
+
 
 RGB values:
 ```

@@ -52,6 +52,8 @@ for most use cases. This covers 99% of real addresses.
 
 > Note: Always send a confirmation email rather than relying solely on
 > regex validation. A regex can't tell you if the address actually exists.
+> [Live example on regex101](https://regex101.com/r/y1fAXf/1)
+
 
 ---
 
@@ -73,6 +75,8 @@ code and extension.
 | `314-555-1234 x99` | yes |
 | `5551234` | no |
 | `314-555-12345` | no |
+> [Live example on regex101](https://regex101.com/r/QOez5n/1)
+
 
 ---
 
@@ -90,6 +94,8 @@ Matches 5-digit ZIP codes and ZIP+4 format.
 | `63101-9234` | yes |
 | `6310` | no |
 | `63101-92` | no |
+> [Live example on regex101](https://regex101.com/r/VvxeS1/1)
+
 
 ---
 
@@ -130,6 +136,8 @@ Matches valid IPv4 addresses only (0-255 per octet).
 | `0.0.0.0` | yes |
 | `256.1.1.1` | no |
 | `192.168.1` | no |
+> [Live example on regex101](https://regex101.com/r/ZEmHyk/1)
+
 
 ---
 
@@ -154,6 +162,8 @@ Matches common card number formats (no spaces or dashes):
 
 > This validates format only. Use the Luhn algorithm to validate
 > the number itself before any actual processing.
+> [Live example on regex101](https://regex101.com/r/WoQiaB/1)
+
 
 ---
 
@@ -174,6 +184,8 @@ one digit, and one special character.
 | `PASSWORD1!` | no (no lowercase) |
 | `Password!` | no (no digit) |
 | `Pass1!` | no (too short) |
+> [Live example on regex101](https://regex101.com/r/mbchNt/1)
+
 
 Adjust the special character set and minimum length to match your
 requirements.
@@ -194,6 +206,8 @@ Use with global flag (`g`) to find all email addresses in a block of text.
 |---|---|
 | `Contact us at info@example.com or support@example.com` | `info@example.com`, `support@example.com` |
 | `Send to user.name+tag@domain.co.uk` | `user.name+tag@domain.co.uk` |
+> [Live example on regex101](https://regex101.com/r/jIuIAZ/1)
+
 
 ---
 
@@ -224,6 +238,8 @@ prefix - won't match bare domain names.
 |---|---|
 | `Visit https://example.com or http://www.test.org/path` | `https://example.com`, `http://www.test.org/path` |
 | `Go to example.com` | no match (no protocol) |
+> [Live example on regex101](https://regex101.com/r/xrmNC7/1)
+
 
 ---
 
@@ -275,6 +291,8 @@ Captures the hashtag text (without the `#`) in group 1.
 |---|---|
 | `Loving #regex and #coding today` | `regex`, `coding` |
 | `Price is $14.99` | no match ($ not #) |
+> [Live example on regex101](https://regex101.com/r/e9j9Wa/1)
+
 
 ---
 
@@ -290,6 +308,8 @@ Captures the username (without `@`) in group 1.
 |---|---|
 | `Thanks @rickylipe for the help` | `rickylipe` |
 | `Email user@example.com` | `example` (partial - use email pattern instead for emails) |
+> [Live example on regex101](https://regex101.com/r/9AVSJs/1)
+
 
 ---
 
@@ -308,6 +328,8 @@ Leaves the text content intact.
 |---|---|
 | `<p>Hello <strong>world</strong></p>` | `Hello world` |
 | `<a href="/page">Click here</a>` | `Click here` |
+> [Live example on regex101](https://regex101.com/r/NlaPt5/1)
+
 
 ---
 
@@ -384,6 +406,8 @@ lowercasing and replacing spaces with hyphens. Two-step process:
 |---|---|
 | `Hello World!` | `hello-world` |
 | `My Favorite Résumé` | `my-favorite-rsum` (accent stripped) |
+> [Live example on regex101](https://regex101.com/r/Oulq6K/1)
+
 
 ---
 
@@ -402,6 +426,8 @@ Captures the domain (without `www`) in group 1.
 | `https://www.example.com/path` | `example.com` |
 | `http://sub.domain.com` | `sub.domain.com` |
 | `example.com` | `example.com` |
+> [Live example on regex101](https://regex101.com/r/fBdIS8/1)
+
 
 ---
 
@@ -456,6 +482,8 @@ Replace `example\.com` with your domain. Matches with or without
 | `2023-12-31` | yes |
 | `2023-1-5` | no |
 | `23-12-31` | no |
+> [Live example on regex101](https://regex101.com/r/FnRwHb/1)
+
 
 ---
 
@@ -541,6 +569,8 @@ separators, and optional cents.
 | `1234.56` | yes |
 | `$0.99` | yes |
 | `1,23.45` | no |
+> [Live example on regex101](https://regex101.com/r/KnKwQD/1)
+
 
 ---
 
@@ -578,6 +608,8 @@ normalizeHexColor('xyz');      // null
 | `#f57` | `#F57` |
 | `f57` | `#F57` |
 | `#GG5733` | `null` (invalid) |
+> [Live example on regex101](https://regex101.com/r/I8SJXE/1)
+
 
 ---
 
@@ -595,6 +627,8 @@ Matches 0-100 with optional decimal and optional `%` sign.
 | `99.9%` | yes |
 | `100` | yes |
 | `101` | no |
+> [Live example on regex101](https://regex101.com/r/RDXcjw/1)
+
 
 ---
 
@@ -672,6 +706,8 @@ SELECT 'mo' REGEXP '^(AL|AK|AZ|...)$';  -- 1
 | `user_name-1` | yes |
 | `ab` | no (too short) |
 | `user name` | no (space not allowed) |
+> [Live example on regex101](https://regex101.com/r/RQEcVI/1)
+
 
 ---
 
@@ -689,6 +725,8 @@ uppercase UUIDs.
 | `550e8400-e29b-41d4-a716-446655440000` | yes |
 | `550e8400-e29b-31d4-a716-446655440000` | no (v3, not v4) |
 | `not-a-uuid` | no |
+> [Live example on regex101](https://regex101.com/r/9hbYOZ/1)
+
 
 ---
 
@@ -727,6 +765,8 @@ to catch "The the" as well.
 | `This is is wrong` | `is is` |
 | `the the problem` | `the the` |
 | `This is fine` | no match |
+> [Live example on regex101](https://regex101.com/r/javhWK/1)
+
 
 ---
 
@@ -744,6 +784,8 @@ pattern matches any character including newlines, non-greedy.
 | `<!-- single line comment -->` | yes |
 | `<!--\nmultiline\ncomment\n-->` | yes |
 | `/* not html */` | no |
+> [Live example on regex101](https://regex101.com/r/k6j2c6/1)
+
 
 ---
 
