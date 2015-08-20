@@ -21,6 +21,7 @@ Use case insensitive flag.
 | `k1a0a9` | yes (with `i` flag) |
 | `11A 1A1` | no (starts with digit) |
 | `D1A 1A1` | no (D not valid first character) |
+
 > [Live example on regex101](https://regex101.com/r/2TulEn/1)
 
 
@@ -60,6 +61,7 @@ Matches Australian 4-digit postcodes.
 | `0800` | yes (Darwin) |
 | `200` | no (too short) |
 | `20000` | no (too long) |
+
 > [Live example on regex101](https://regex101.com/r/2TulEn/1)
 
 
@@ -80,6 +82,7 @@ Use case insensitive flag.
 | `DE89370400440532013000` | yes |
 | `12345678` | no (no country code) |
 | `GB82` | no (too short) |
+
 > [Live example on regex101](https://regex101.com/r/9hbYOZ/1)
 
 
@@ -100,6 +103,7 @@ used in VINs to avoid confusion with 1, 0, and 0.
 | `JH4KA7650MC002480` | yes |
 | `1HGBH41JXMN10918` | no (16 chars) |
 | `1HGBH41JXMN10918O` | no (contains O) |
+
 > [Live example on regex101](https://regex101.com/r/wb9kTI/1)
 
 
@@ -120,6 +124,7 @@ Matches MAC addresses with either `:` or `-` as separator.
 | `00:1a:2b:3c:4d:5e` | yes |
 | `001A2B3C4D5E` | no (no separator) |
 | `00:1A:2B:3C:4D` | no (only 5 groups) |
+
 > [Live example on regex101](https://regex101.com/r/AuYoPJ/1)
 
 
@@ -144,6 +149,7 @@ Simple MAJOR.MINOR.PATCH only:
 | `1.0.0+build.1` | yes | no |
 | `1.0` | no | no |
 | `v1.0.0` | no | no |
+
 > [Live example on regex101](https://regex101.com/r/7CgxQG/1)
 
 
