@@ -338,7 +338,7 @@ Leaves the text content intact.
 | `<p>Hello <strong>world</strong></p>` | `Hello world` |
 | `<a href="/page">Click here</a>` | `Click here` |
 
-> [Live example on regex101](https://regex101.com/r/NlaPt5/1)
+> [Live example on regex101](https://regex101.com/r/ur2msx/1)
 
 
 ---
