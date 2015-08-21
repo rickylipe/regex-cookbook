@@ -762,6 +762,8 @@ Useful for cleaning up text output.
 | Line 1\n\nLine 3 | the empty line between them |
 | Line 1\n   \nLine 3 | the whitespace-only line |
 
+> [Live example on regex101](https://regex101.com/r/s96Hr7/1)
+
 ---
 
 ### Repeated Words
