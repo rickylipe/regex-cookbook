@@ -1,4 +1,4 @@
-# regex-cookbook
+# RegEx Cookbook
 
 A curated reference of regular expressions for common real-world problems.
 
